@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+  purge|remove)
+    # Parar el servicio
+    systemctl stop sddmx11.service
+    systemctl disable sddmx11.service
+
+    # Eliminar el archivo de contraseña
+    rm -f /etc/x11vnc.passwd
+
+    # Eliminar el archivo de servicio si no es necesario para otros
+    rm -f /etc/systemd/system/sddmx11.service
+
+    # Recargar systemd para aplicar los cambios
+    systemctl daemon-reload
+    ;;
+  *)
+    # Si el script es llamado con argumentos distintos a purge o remove
+    exit 0
+    ;;
+esac
+
+exit 0
