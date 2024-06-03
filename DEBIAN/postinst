@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+# Configurar la contraseña para x11vnc de forma cifrada
+x11vnc -storepasswd "m1passw0rd" /etc/x11vnc.passwd
+
+# Ajustar los permisos del archivo de contraseña
+chmod 600 /etc/x11vnc.passwd
+chown root:root /etc/x11vnc.passwd
+
+# Recargar systemd, habilitar y arrancar el servicio x11vnc
+systemctl daemon-reload
+systemctl enable sddmx11.service
+systemctl start sddmx11.service

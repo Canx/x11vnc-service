@@ -1,0 +1,9 @@
+Package: sddmx11-package
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Depends: x11vnc
+Maintainer: Rubén Cancho <r.cancho@edu.gva.es>
+Description: Paquete para configurar x11vnc y sddm mediante servicio sddmx11.service
+
