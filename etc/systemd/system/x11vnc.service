@@ -5,7 +5,7 @@ After=display-manager.service
 
 [Service]
 Type=forking
-ExecStartPre=/bin/bash -c "/usr/bin/systemctl set-environment SDDMXAUTH=$(/usr/bin/find /var/run/sddm/ -type f)"
+ExecStartPre=/bin/bash -c "/bin/systemctl set-environment SDDMXAUTH=$(/usr/bin/find /var/run/sddm/ -type f)"
 ExecStart=/usr/bin/x11vnc -display :0 -auth ${SDDMXAUTH} -forever -shared -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.passwd -noxdamage
 ExecStop=/usr/bin/killall x11vnc
 Restart=on-failure
