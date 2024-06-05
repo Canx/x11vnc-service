@@ -4,14 +4,14 @@ set -e
 case "$1" in
   purge|remove)
     # Parar el servicio
-    systemctl stop sddmx11.service
-    systemctl disable sddmx11.service
+    systemctl stop x11vnc.service
+    systemctl disable x11vnc.service
 
     # Eliminar el archivo de contraseña
     rm -f /etc/x11vnc.passwd
 
     # Eliminar el archivo de servicio si no es necesario para otros
-    rm -f /etc/systemd/system/sddmx11.service
+    rm -f /etc/systemd/system/x11vnc.service
 
     # Recargar systemd para aplicar los cambios
     systemctl daemon-reload

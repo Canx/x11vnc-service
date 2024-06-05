@@ -6,10 +6,10 @@ chmod 600 /etc/x11vnc.passwd
 chown root:root /etc/x11vnc.passwd
 
 # Ajustar los permisos del archivo de servicio
-chmod 644 /etc/systemd/system/sddmx11.service
-chown root:root /etc/systemd/system/sddmx11.service
+chmod 644 /etc/systemd/system/x11vnc.service
+chown root:root /etc/systemd/system/x11vnc.service
 
 # Recargar systemd, habilitar y arrancar el servicio x11vnc
 systemctl daemon-reload
-systemctl enable sddmx11.service
-systemctl start sddmx11.service
+systemctl enable x11vnc.service
+systemctl start x11vnc.service
