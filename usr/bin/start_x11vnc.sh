@@ -7,18 +7,15 @@ files=$(ls -tr /var/run/sddm/*)
 for file in $files; do
   # Obtener el display asociado al archivo de Xauthority
   display=$(xauth -f "$file" list | awk '{print $1}' | grep -Eo ':[0-9]+$')
-
+  
   # Verificar si se encontró un display
   if [ -n "$display" ]; then
-    # Establecer la variable de entorno SDDMXAUTH
-    echo "SDDMXAUTH=$file" > /etc/default/x11vnc
-
-    # Establecer la variable de entorno DISPLAY
-    echo "DISPLAY=$display" >> /etc/default/x11vnc
-
+    export SDDMXAUTH=$file
+    export DISPLAY=$display
+    
     echo "SDDMXAUTH configurado en $file"
     echo "DISPLAY configurado en $display"
-
+    
     break
   fi
 done
@@ -28,3 +25,6 @@ if [ -z "$display" ]; then
   echo "Error: No se encontró ningún archivo Xauthority válido."
   exit 1
 fi
+
+# Ejecutar x11vnc con las variables de entorno configuradas
+exec /usr/bin/x11vnc -display $DISPLAY -auth $SDDMXAUTH -forever -shared -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.passwd -noxdamage

@@ -4,10 +4,8 @@ Requires=display-manager.service
 After=display-manager.service
 
 [Service]
-EnvironmentFile=/etc/default/x11vnc
 Type=forking
-ExecStartPre=/bin/bash -c "/usr/bin/x11vnc_vars.sh"
-ExecStart=/usr/bin/x11vnc -display ${DISPLAY} -auth ${SDDMXAUTH} -forever -shared -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.passwd -noxdamage
+ExecStart=/bin/bash /usr/bin/start_x11vnc.sh
 ExecStop=/usr/bin/killall x11vnc
 Restart=on-failure
 RestartSec=2
